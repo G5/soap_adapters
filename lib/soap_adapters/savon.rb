@@ -7,7 +7,7 @@ module SoapAdapters
     attribute :wsdl, String
     attribute :logger
     attribute :log, Boolean, default: true
-    attribute :ssl_version, String, default: :TLSv1
+    attribute :ssl_version, Symbol, default: :TLSv1
     attribute :last_request, String
 
     def ssl_version
@@ -24,7 +24,8 @@ module SoapAdapters
 
     def client
       args = CLIENT_ATTRS.reduce({}) do |hash, attr|
-        hash[attr] = self.attributes.fetch(attr)
+        val = self.attributes.fetch(attr)
+        hash[attr] = val unless val.nil?
         hash
       end
       ::Savon.client(args)

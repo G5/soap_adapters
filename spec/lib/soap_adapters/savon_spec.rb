@@ -10,7 +10,7 @@ describe SoapAdapters::Savon do
     it { is_expected.to have_attribute(:logger) }
     it { is_expected.to have_attribute(:log).with_default(true) }
     it do
-      is_expected.to have_attribute(:ssl_version, String).with_default(:TLSv1)
+      is_expected.to have_attribute(:ssl_version, Symbol).with_default(:TLSv1)
     end
     it { is_expected.to have_attribute(:last_request, String) }
   end
@@ -43,6 +43,19 @@ describe SoapAdapters::Savon do
 
     it "makes a soap call and sets the last request and response" do
       adapter = described_class.new(wsdl: "wsdl", logger: logger, log: true)
+      r = adapter.call(*client_args)
+      expect(adapter.last_request).to eq "request_xml"
+      expect(r.to_s).to eq "response_xml"
+      expect(r.xml).to eq "response_xml"
+    end
+
+    it "instantiates a Savon client passing only arguments that are present" do
+      allow(::Savon).to receive(:client).with(
+        wsdl: "wsdl",
+        log: false,
+        ssl_version: :TLSv1,
+      ).and_return(client)
+      adapter = described_class.new(wsdl: "wsdl", log: false)
       r = adapter.call(*client_args)
       expect(adapter.last_request).to eq "request_xml"
       expect(r.to_s).to eq "response_xml"
