@@ -1,3 +1,7 @@
+# v0.1.0
+
+- Adds support for open and read timeouts
+
 # v0.0.2
 
 - Fix bug where `:ssl_version` is a string when it should be a symbol
