@@ -2,13 +2,15 @@ module SoapAdapters
   class Savon
 
     include Virtus.model
-    CLIENT_ATTRS = %i[wsdl logger log ssl_version]
+    CLIENT_ATTRS = %i[wsdl logger log ssl_version open_timeout read_timeout]
 
     attribute :wsdl, String
     attribute :logger
     attribute :log, Boolean, default: true
     attribute :ssl_version, Symbol, default: :TLSv1
     attribute :last_request, String
+    attribute :open_timeout, Integer
+    attribute :read_timeout, Integer
 
     def ssl_version
       @ssl_version || :TLSv1

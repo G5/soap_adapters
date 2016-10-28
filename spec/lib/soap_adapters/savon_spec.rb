@@ -61,6 +61,21 @@ describe SoapAdapters::Savon do
       expect(r.to_s).to eq "response_xml"
       expect(r.xml).to eq "response_xml"
     end
+
+    it "sets the open_timeout and read_timeout if declared" do
+      allow(::Savon).to receive(:client).with(
+        wsdl: "wsdl",
+        log: false,
+        ssl_version: :TLSv1,
+        open_timeout: 30,
+        read_timeout: 10
+      ).and_return(client)
+      adapter = described_class.new(wsdl: "wsdl", log: false, open_timeout: 30, read_timeout: 10)
+      r = adapter.call(*client_args)
+      expect(adapter.last_request).to eq "request_xml"
+      expect(r.to_s).to eq "response_xml"
+      expect(r.xml).to eq "response_xml"
+    end
   end
 
 end
