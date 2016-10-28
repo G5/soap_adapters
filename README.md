@@ -28,7 +28,9 @@ adapter = SoapAdapters::Savon.new(
   wsdl: "https://myservice.com?WSDL",
   logger: MyLogger.new,
   log: false,
-  ssl_version: :TLSv1, # optional; defaults to :TLSv1
+  ssl_version: :TLSv1, # optional; defaults to :TLSv1,
+  open_timeout: 30,
+  read_timeout: 10
 )
 
 response = adapter.call(:make_reservation, message: {username: "abc"})
