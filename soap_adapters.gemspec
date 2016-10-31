@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "soap_adapters"
   spec.version       = SoapAdapters::VERSION
   spec.authors       = ["G5", "Ramon Tayag", "Michael Mitchell"]
-  spec.email         = ["ramon.tayag@gmail.com", "lateam@getg5.com"]
+  spec.email         = ["ramon.tayag@gmail.com", "michael.mitchell@gmail.com"]
   spec.summary       = %q{Common interface to soap clients}
   spec.description   = %q{Common interface to soap clients}
   spec.homepage      = ""
